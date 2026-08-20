@@ -13,7 +13,7 @@ export interface Usuario {
 export class UsuariosStore {
   private readonly http = inject(HttpClient);
   readonly usuarios = toSignal(
-    this.http.get<readonly Usuario[]>('http://localhost/api/usuarios'),
+    this.http.get<readonly Usuario[]>('http://localhost:8081/api/usuarios'),
     { initialValue: [] },
   );
 }
