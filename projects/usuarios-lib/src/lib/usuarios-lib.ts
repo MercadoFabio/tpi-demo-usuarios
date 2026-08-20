@@ -1,4 +1,6 @@
-import { ChangeDetectionStrategy, Component, Injectable, computed, inject, signal } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { ChangeDetectionStrategy, Component, Injectable, computed, inject } from '@angular/core';
+import { toSignal } from '@angular/core/rxjs-interop';
 import { ActivatedRoute } from '@angular/router';
 
 export interface Usuario {
@@ -7,15 +9,13 @@ export interface Usuario {
   readonly rol: string;
 }
 
-const USUARIOS: readonly Usuario[] = [
-  { id: 1, nombre: 'Ana García', rol: 'Administradora' },
-  { id: 2, nombre: 'Bruno Pérez', rol: 'Docente' },
-  { id: 3, nombre: 'Carla López', rol: 'Estudiante' },
-];
-
 @Injectable({ providedIn: 'root' })
 export class UsuariosStore {
-  readonly usuarios = signal<readonly Usuario[]>(USUARIOS);
+  private readonly http = inject(HttpClient);
+  readonly usuarios = toSignal(
+    this.http.get<readonly Usuario[]>('http://localhost/api/usuarios'),
+    { initialValue: [] },
+  );
 }
 
 @Component({
