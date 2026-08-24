@@ -9,7 +9,7 @@ Workspace Angular 22 que pertenece al equipo Usuarios. La aplicación bajo `src/
 
 Al llegar un cambio a `main`, el workflow compila, publica la librería y notifica a `tpi-demo-shell`.
 
-La librería obtiene los datos desde `http://localhost:8081/api/usuarios` a través del BFF compartido.
+La librería obtiene los datos mediante `/api/v1/usuarios` a través del BFF compartido. El gateway conserva el mismo origen; la librería no conoce hosts, puertos ni credenciales.
 
 ```bash
 npm start
